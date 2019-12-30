@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd    
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- <context:component-scan base-package="com.evolvusion.easba.controller" 
+		/> <context:component-scan base-package="com.evolvusion.easba.dao"></context:component-scan> 
+		<context:component-scan base-package="com.evolvusion.easba.service"></context:component-scan> 
+		<context:component-scan base-package="com.evolvusion.easba.repository"></context:component-scan> 
+		<context:component-scan base-package="com.evolvusion.easba.bean"></context:component-scan> -->
+
+
+	<bean
+		class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor" />
+		<property name="ignoreResourceNotFound">
+			<value>true</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>file:///${EASBA_CONFIGDEMO}/db.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="configurationEncryptor"
+		class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config"
+			ref="environmentVariablesConfiguration" />
+	</bean>
+
+	<bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.SimplePBEConfig">
+		<!-- <property name="algorithm"> <value>PBEWITHMD5ANDDES</value> </property> 
+			<property name="password"> <value>secret1234</value> </property> -->
+		<property name="algorithm" value="PBEWITHMD5ANDDES" />
+		<property name="password" value="secret1234" />
+	</bean>
+
+	<!-- <bean id="propertyConfigData" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>file:///${EASBA_CONFIGDEMO}/db.properties</value> 
+		</list> </property> <property name="order" value="0" /> </bean> -->
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="annotatedClasses"> <list> <value>com.evolvusion.easba.bean</value> 
+			</list> </property> -->
+		<property name="packagesToScan"
+			value="com.evolvusion.easba.bean"></property>
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${db.showsql}" />
+				<property name="generateDdl" value="${db.generateDdl}" />
+				<property name="databasePlatform" value="${db.dialect}" />
+			</bean>
+		</property>
+	</bean>
+	<!-- <bean id="empDAO" class="com.evolvusion.easba.dao.Easbadaoimpl"> </bean> -->
+	<!-- <bean id="empService" class="com.evolvusion.easba.service.EasbaServiceimpl"> 
+		<property name="empDAO" ref="empDAO"></property> </bean> <bean id="EasbaRepository" 
+		class="com.evolvusion.easba.repository.EasbaRepository"> </bean> <bean id="empDAO" 
+		class="com.evolvusion.easba.dao.Easbadaoimpl"> <property name="EasbaRepository" 
+		ref="EasbaRepository"></property> </bean> -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+</beans>

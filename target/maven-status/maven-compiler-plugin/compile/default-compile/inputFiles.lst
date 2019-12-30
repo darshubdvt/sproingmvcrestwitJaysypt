@@ -1,0 +1,8 @@
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/repository/EasbaRepository.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/dao/EasbaDao.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/bean/Employee.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/controller/EasbaRestController.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/dao/Easbadaoimpl.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/service/EasbaServiceimpl.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/pojo/AsbaWsBean.java
+/data/eclips-Workspace/myworkspace/Springboot/easba/src/main/java/com/evolvusion/easba/service/EasbaSerice.java

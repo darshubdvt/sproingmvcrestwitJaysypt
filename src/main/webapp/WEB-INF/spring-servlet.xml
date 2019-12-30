@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+ 		http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+<!-- 	<context:annotation-config></context:annotation-config>
+ -->	
+ <!-- <context:component-scan
+		base-package="com.evolvusion.easba,com.evolvusion.easba.controller" /> -->
+		<context:component-scan base-package="com.evolvusion.easba"></context:component-scan>
+		<jpa:repositories base-package="com.evolvusion.easba.repository"></jpa:repositories>
+	<!-- <context:component-scan base-package="com.evolvusion.easba">
+		<context:include-filter type="aspectj"
+			expression="com.evolvusion.easba.*" />
+	</context:component-scan> -->
+	<!-- <context:component-scan base-package="com.evolvusion.easba.service" 
+		/> <context:component-scan base-package="com.evolvusion.easba.bean" /> -->
+	<!-- <context:component-scan base-package="enterprise.util" /> <context:component-scan 
+		base-package="dbService" /> -->
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<import resource="classpath*://**/config/*.cfg.xml" />
+
+</beans>
